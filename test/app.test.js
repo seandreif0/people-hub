@@ -37,6 +37,23 @@ test('time-off data includes a days-only balance and current request types', asy
   assert.deepEqual(result.leaveTypes.map((type) => type.name), ['Vacation', 'Sick leave', 'Personal day']);
 });
 
+test('Home page shows PTO benefits with request timing', async (t) => {
+  const baseUrl = await startServer(t);
+  const [homeResponse, timeOffResponse] = await Promise.all([
+    fetch(`${baseUrl}/`),
+    fetch(`${baseUrl}/api/time-off`)
+  ]);
+  const home = await homeResponse.text();
+  const timeOff = await timeOffResponse.json();
+
+  assert.match(home, /YOUR PTO BENEFITS/);
+  assert.match(home, /id="pto-benefits"/);
+  assert.ok(timeOff.renewal);
+  for (const type of timeOff.leaveTypes) {
+    assert.ok(type.timing, `${type.name} should include request timing`);
+  }
+});
+
 test('Benefits and Directory return sample data', async (t) => {
   const baseUrl = await startServer(t);
   const [benefitsResponse, directoryResponse] = await Promise.all([
