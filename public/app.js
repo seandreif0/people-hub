@@ -13,6 +13,23 @@ function makeElement(tagName, className, text) {
   return element;
 }
 
+async function loadHome() {
+  const data = await getJson('/api/time-off');
+  document.querySelector('#home-pto-balance').textContent = data.balanceDays;
+  if (data.renewal) document.querySelector('#home-pto-renewal').textContent = data.renewal;
+  const grid = document.querySelector('#pto-benefits');
+  grid.replaceChildren();
+  for (const type of data.leaveTypes) {
+    const card = makeElement('article', 'pto-card');
+    card.append(
+      makeElement('h3', 'card-title', type.name),
+      makeElement('p', 'card-description', type.description),
+      makeElement('p', 'pto-timing', type.timing)
+    );
+    grid.append(card);
+  }
+}
+
 async function loadTimeOff() {
   const data = await getJson('/api/time-off');
   document.querySelector('#balance-days').textContent = data.balanceDays;
@@ -89,6 +106,7 @@ async function loadDirectory() {
 
 const page = document.body.dataset.page;
 const pageLoaders = {
+  home: loadHome,
   'time-off': loadTimeOff,
   benefits: loadBenefits,
   directory: loadDirectory
@@ -96,7 +114,7 @@ const pageLoaders = {
 
 if (pageLoaders[page]) {
   pageLoaders[page]().catch(() => {
-    const target = document.querySelector('#request-message, #benefit-grid, #directory-list');
+    const target = document.querySelector('#request-message, #benefit-grid, #directory-list, #pto-benefits');
     if (target) {
       target.textContent = 'We could not load this section. Please try again.';
       target.classList.add('error');

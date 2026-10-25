@@ -98,6 +98,12 @@ h2 { margin-bottom: 0; color: var(--navy); font-size: 20px; font-weight: 650; le
 .card-title { margin-top: 16px; color: var(--navy); font-size: 16px; font-weight: 650; }
 .card-description { max-width: 270px; margin-top: 3px; color: var(--muted); font-size: 13px; }
 .card-arrow { position: absolute; top: 25px; right: 24px; color: #8190a6; font-size: 17px; }
+.pto-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.pto-card { display: flex; flex-direction: column; align-items: flex-start; padding: 22px 23px; border: 1px solid var(--line); border-top: 3px solid var(--red, var(--blue)); background: var(--paper); }
+.pto-card .card-title { margin: 0; }
+.pto-card .card-description { margin: 3px 0 14px; }
+.pto-timing { margin: auto 0 0; padding-top: 12px; border-top: 1px solid var(--line); width: 100%; color: var(--ink); font-size: 13px; font-weight: 600; }
+.pto-timing::before { display: block; margin-bottom: 2px; color: var(--red, var(--blue)); content: "TIMING"; font-size: 10px; font-weight: 700; letter-spacing: .08em; }
 .home-footer, .help-banner { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 36px; padding: 23px 26px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
 .home-footer .eyebrow, .help-banner .eyebrow { margin-bottom: 4px; }
 .home-footer h2, .help-banner h2 { font-size: 17px; }
@@ -251,7 +257,7 @@ input:focus, select:focus, textarea:focus, .search-wrap:focus-within { border-co
   .welcome-panel { min-height: 290px; padding: 29px 24px; }
   .welcome-art { top: 45px; right: -178px; transform: scale(.82); }
   .section-heading { align-items: flex-start; flex-direction: column; gap: 5px; }
-  .shortcut-grid, .benefit-grid { grid-template-columns: 1fr; }
+  .shortcut-grid, .benefit-grid, .pto-grid { grid-template-columns: 1fr; }
   .shortcut-card { min-height: 148px; }
   .home-footer, .help-banner { align-items: flex-start; flex-direction: column; }
   .home-footer > p { order: 2; }
