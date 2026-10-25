@@ -17,9 +17,18 @@ async function loadTimeOff() {
   const data = await getJson('/api/time-off');
   document.querySelector('#balance-days').textContent = data.balanceDays;
   const select = document.querySelector('#leave-type');
+  const policyNote = document.querySelector('#leave-policy-note');
   for (const type of data.leaveTypes) {
     select.add(new Option(type.name, type.name));
   }
+
+  function updatePolicyNote() {
+    const selectedType = data.leaveTypes.find((type) => type.name === select.value);
+    policyNote.textContent = selectedType?.policyNote || '';
+    policyNote.hidden = !selectedType?.policyNote;
+  }
+
+  select.addEventListener('change', updatePolicyNote);
 
   document.querySelector('#request-form').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -35,7 +44,10 @@ async function loadTimeOff() {
       ? `Request ${result.id} submitted for review.`
       : result.error;
     message.className = `form-message${response.ok ? ' success' : ' error'}`;
-    if (response.ok) event.currentTarget.reset();
+    if (response.ok) {
+      event.currentTarget.reset();
+      updatePolicyNote();
+    }
   });
 }
 

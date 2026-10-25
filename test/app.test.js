@@ -23,7 +23,11 @@ test('Home, Time Off, Benefits, and Directory pages load', async (t) => {
   for (const [route, heading] of pages) {
     const response = await fetch(`${baseUrl}${route}`);
     assert.equal(response.status, 200, `${route} should return 200`);
-    assert.match(await response.text(), new RegExp(heading));
+    const html = await response.text();
+    assert.match(html, new RegExp(heading));
+    if (route === '/time-off') {
+      assert.match(html, /id="leave-policy-note"/);
+    }
   }
 });
 
@@ -34,7 +38,9 @@ test('time-off data includes a days-only balance and current request types', asy
 
   assert.equal(response.status, 200);
   assert.equal(result.balanceDays, 18);
-  assert.deepEqual(result.leaveTypes.map((type) => type.name), ['Vacation', 'Sick leave', 'Personal day']);
+  assert.deepEqual(result.leaveTypes.map((type) => type.name), ['Vacation', 'Sick leave', 'Personal day', 'Parental leave']);
+  const parentalLeave = result.leaveTypes.find((type) => type.name === 'Parental leave');
+  assert.equal(parentalLeave.policyNote, 'Check the company leave policy for eligibility and details.');
 });
 
 test('Benefits and Directory return sample data', async (t) => {
@@ -75,11 +81,28 @@ test('the form rejects unsupported leave types', async (t) => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      leaveType: 'Parental leave',
+      leaveType: 'Sabbatical',
       startDate: '2026-08-10',
       endDate: '2026-08-12'
     })
   });
 
   assert.equal(response.status, 400);
+});
+
+test('a parental leave request is accepted', async (t) => {
+  const baseUrl = await startServer(t);
+  const response = await fetch(`${baseUrl}/api/time-off-requests`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      leaveType: 'Parental leave',
+      startDate: '2026-09-01',
+      endDate: '2026-09-30'
+    })
+  });
+  const request = await response.json();
+
+  assert.equal(response.status, 201);
+  assert.equal(request.status, 'Submitted');
 });
