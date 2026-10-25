@@ -1,6 +1,6 @@
 {
   "employee": {
-    "name": "Alex Morgan",
+    "name": "Seth Fox",
     "role": "People Operations",
     "department": "People & Culture",
     "location": "New York, NY"
@@ -41,11 +41,11 @@
   ],
   "directory": [
     {
-      "name": "Alex Morgan",
+      "name": "Seth Fox",
       "role": "People Operations Partner",
       "department": "People & Culture",
       "location": "New York, NY",
-      "email": "alex.morgan@example.com"
+      "email": "seth.fox@example.com"
     },
     {
       "name": "Jordan Lee",
