@@ -224,6 +224,8 @@ input:focus, select:focus, textarea:focus, .search-wrap:focus-within { border-co
 .search-wrap input:focus { box-shadow: none; }
 
 .site-footer { width: 100%; margin-top: 24px; padding: 22px var(--gutter); border: 0; background: var(--ink); color: #bdbdbd; font-size: 12px; }
+.site-footer .footer-link { color: #fff; text-decoration: underline; }
+.site-footer .footer-link:hover, .site-footer .footer-link:focus-visible { color: #bdbdbd; }
 
 @media (max-width: 800px) {
   .site-header { flex-wrap: wrap; gap: 0 20px; padding: 0 5vw; }
