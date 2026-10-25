@@ -83,3 +83,13 @@ test('the form rejects unsupported leave types', async (t) => {
 
   assert.equal(response.status, 400);
 });
+
+test('every page footer has a Contact HR mailto link', async (t) => {
+  const baseUrl = await startServer(t);
+  for (const route of ['/', '/time-off', '/benefits', '/directory']) {
+    const html = await (await fetch(`${baseUrl}${route}`)).text();
+    const footer = html.match(/<footer class="site-footer">[\s\S]*?<\/footer>/);
+    assert.ok(footer, `${route} should have a footer`);
+    assert.match(footer[0], /<a [^>]*href="mailto:hr@example\.com"[^>]*>Contact HR<\/a>/, `${route} footer should link to HR`);
+  }
+});
