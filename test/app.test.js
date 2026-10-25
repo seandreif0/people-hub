@@ -37,6 +37,18 @@ test('time-off data includes a days-only balance and current request types', asy
   assert.deepEqual(result.leaveTypes.map((type) => type.name), ['Vacation', 'Sick leave', 'Personal day']);
 });
 
+test('Home page shows the PTO balance in days and hours', async (t) => {
+  const baseUrl = await startServer(t);
+  const html = await (await fetch(`${baseUrl}/`)).text();
+  const script = await (await fetch(`${baseUrl}/app.js`)).text();
+
+  assert.match(html, /YOUR PTO BALANCE/);
+  assert.match(html, /id="home-balance-days"/);
+  assert.match(html, /id="home-balance-hours"/);
+  assert.match(script, /home: loadHome/);
+  assert.match(script, /balanceDays \* HOURS_PER_DAY/);
+});
+
 test('Benefits and Directory return sample data', async (t) => {
   const baseUrl = await startServer(t);
   const [benefitsResponse, directoryResponse] = await Promise.all([

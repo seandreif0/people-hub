@@ -13,6 +13,14 @@ function makeElement(tagName, className, text) {
   return element;
 }
 
+const HOURS_PER_DAY = 8;
+
+async function loadHome() {
+  const { balanceDays } = await getJson('/api/time-off');
+  document.querySelector('#home-balance-days').textContent = balanceDays;
+  document.querySelector('#home-balance-hours').textContent = balanceDays * HOURS_PER_DAY;
+}
+
 async function loadTimeOff() {
   const data = await getJson('/api/time-off');
   document.querySelector('#balance-days').textContent = data.balanceDays;
@@ -89,6 +97,7 @@ async function loadDirectory() {
 
 const page = document.body.dataset.page;
 const pageLoaders = {
+  home: loadHome,
   'time-off': loadTimeOff,
   benefits: loadBenefits,
   directory: loadDirectory
@@ -96,7 +105,7 @@ const pageLoaders = {
 
 if (pageLoaders[page]) {
   pageLoaders[page]().catch(() => {
-    const target = document.querySelector('#request-message, #benefit-grid, #directory-list');
+    const target = document.querySelector('#request-message, #benefit-grid, #directory-list, #home-balance-message');
     if (target) {
       target.textContent = 'We could not load this section. Please try again.';
       target.classList.add('error');
