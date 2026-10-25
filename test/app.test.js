@@ -27,6 +27,17 @@ test('Home, Time Off, Benefits, and Directory pages load', async (t) => {
   }
 });
 
+test('every page footer has a Contact HR email link', async (t) => {
+  const baseUrl = await startServer(t);
+
+  for (const route of ['/', '/time-off', '/benefits', '/directory']) {
+    const html = await (await fetch(`${baseUrl}${route}`)).text();
+    const footer = html.match(/<footer class="site-footer">[\s\S]*?<\/footer>/);
+    assert.ok(footer, `${route} should have a site footer`);
+    assert.match(footer[0], /<a [^>]*href="mailto:hr@example\.com"[^>]*>Contact HR<\/a>/, `${route} footer should link to HR`);
+  }
+});
+
 test('time-off data includes a days-only balance and current request types', async (t) => {
   const baseUrl = await startServer(t);
   const response = await fetch(`${baseUrl}/api/time-off`);
