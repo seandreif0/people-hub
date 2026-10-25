@@ -36,9 +36,10 @@
           <p class="muted">Your request will be sent to your manager for review.</p>
           <form id="request-form">
             <label for="leave-type">Leave type</label>
-            <select id="leave-type" name="leaveType" required>
+            <select id="leave-type" name="leaveType" aria-describedby="leave-policy-note" required>
               <option value="">Choose a leave type</option>
             </select>
+            <p id="leave-policy-note" class="policy-note" hidden></p>
             <div class="date-grid">
               <div><label for="start-date">First day</label><input id="start-date" name="startDate" type="date" required></div>
               <div><label for="end-date">Last day</label><input id="end-date" name="endDate" type="date" required></div>

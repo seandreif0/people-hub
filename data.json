@@ -19,6 +19,11 @@
       {
         "name": "Personal day",
         "description": "For personal needs"
+      },
+      {
+        "name": "Parental leave",
+        "description": "Time away to welcome a new child",
+        "policyNote": "Check the company leave policy for eligibility and details."
       }
     ]
   },
