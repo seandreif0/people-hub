@@ -32,8 +32,9 @@ async function loadTimeOff() {
 
   document.querySelector('#request-form').addEventListener('submit', async (event) => {
     event.preventDefault();
+    const form = event.currentTarget;
     const message = document.querySelector('#request-message');
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData(form);
     const response = await fetch('/api/time-off-requests', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -45,7 +46,7 @@ async function loadTimeOff() {
       : result.error;
     message.className = `form-message${response.ok ? ' success' : ' error'}`;
     if (response.ok) {
-      event.currentTarget.reset();
+      form.reset();
       updatePolicyNote();
     }
   });
