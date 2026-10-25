@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7fa">
+    <title>Directory · People Hub</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body data-page="directory">
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="People Hub home"><span class="brand-mark" aria-hidden="true">P</span><span>People Hub</span></a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="/">Home</a><a href="/time-off">Time Off</a><a href="/benefits">Benefits</a><a class="active" href="/directory">Directory</a>
+      </nav>
+      <div class="profile-chip"><span class="avatar">AM</span><span>Alex Morgan</span></div>
+    </header>
+    <main class="page-shell">
+      <section class="page-intro">
+        <p class="eyebrow">YOUR COLLEAGUES</p>
+        <h1>People directory</h1>
+        <p class="welcome-lede">Find a teammate and see where they work.</p>
+      </section>
+      <section class="directory-panel">
+        <div class="directory-toolbar">
+          <div><h2>Team members</h2><p class="muted">A few people from across the company.</p></div>
+          <label class="search-wrap"><span class="sr-only">Search by name or team</span><span aria-hidden="true">⌕</span><input id="directory-search" type="search" placeholder="Search people or teams"></label>
+        </div>
+        <div id="directory-list" class="directory-list" aria-live="polite">
+          <p class="muted">Loading people…</p>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer"><span>People Hub</span><span>Employee self-service · Demo</span></footer>
+  </body>
+</html>

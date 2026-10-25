@@ -1,0 +1,72 @@
+{
+  "employee": {
+    "name": "Alex Morgan",
+    "role": "People Operations",
+    "department": "People & Culture",
+    "location": "New York, NY"
+  },
+  "timeOff": {
+    "balanceDays": 18,
+    "leaveTypes": [
+      {
+        "name": "Vacation",
+        "description": "Planned time away"
+      },
+      {
+        "name": "Sick leave",
+        "description": "For health and wellness"
+      },
+      {
+        "name": "Personal day",
+        "description": "For personal needs"
+      }
+    ]
+  },
+  "benefits": [
+    {
+      "title": "Health coverage",
+      "description": "Review medical, dental, and vision plan information.",
+      "action": "Explore coverage"
+    },
+    {
+      "title": "Retirement savings",
+      "description": "Find plan details and tools for your long-term goals.",
+      "action": "View plan details"
+    },
+    {
+      "title": "Wellbeing resources",
+      "description": "Browse support for your physical and mental wellbeing.",
+      "action": "See resources"
+    }
+  ],
+  "directory": [
+    {
+      "name": "Alex Morgan",
+      "role": "People Operations Partner",
+      "department": "People & Culture",
+      "location": "New York, NY",
+      "email": "alex.morgan@example.com"
+    },
+    {
+      "name": "Jordan Lee",
+      "role": "Product Designer",
+      "department": "Digital Workplace",
+      "location": "Chicago, IL",
+      "email": "jordan.lee@example.com"
+    },
+    {
+      "name": "Taylor Reed",
+      "role": "Benefits Specialist",
+      "department": "People & Culture",
+      "location": "Boston, MA",
+      "email": "taylor.reed@example.com"
+    },
+    {
+      "name": "Casey Patel",
+      "role": "Engineering Manager",
+      "department": "Employee Platforms",
+      "location": "Austin, TX",
+      "email": "casey.patel@example.com"
+    }
+  ]
+}

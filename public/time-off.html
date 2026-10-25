@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7fa">
+    <title>Time Off · People Hub</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body data-page="time-off">
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="People Hub home"><span class="brand-mark" aria-hidden="true">P</span><span>People Hub</span></a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="/">Home</a><a class="active" href="/time-off">Time Off</a><a href="/benefits">Benefits</a><a href="/directory">Directory</a>
+      </nav>
+      <div class="profile-chip"><span class="avatar">AM</span><span>Alex Morgan</span></div>
+    </header>
+    <main class="page-shell">
+      <section class="page-intro">
+        <p class="eyebrow">TIME AWAY</p>
+        <h1>Make room for life.</h1>
+        <p class="welcome-lede">Check your available time and send a request when you’re ready.</p>
+      </section>
+      <section class="time-layout">
+        <article class="balance-card">
+          <div class="balance-top"><span class="card-icon icon-lavender" aria-hidden="true">↗</span><span class="eyebrow">YOUR PTO BALANCE</span></div>
+          <p class="balance-number"><span id="balance-days">—</span> <span>days</span></p>
+          <p class="muted">Available to request</p>
+          <div class="balance-rule"></div>
+          <p class="balance-note">Your balance is refreshed as time off is approved.</p>
+        </article>
+        <section class="form-card">
+          <p class="eyebrow">PLAN AHEAD</p>
+          <h2>Request time off</h2>
+          <p class="muted">Your request will be sent to your manager for review.</p>
+          <form id="request-form">
+            <label for="leave-type">Leave type</label>
+            <select id="leave-type" name="leaveType" required>
+              <option value="">Choose a leave type</option>
+            </select>
+            <div class="date-grid">
+              <div><label for="start-date">First day</label><input id="start-date" name="startDate" type="date" required></div>
+              <div><label for="end-date">Last day</label><input id="end-date" name="endDate" type="date" required></div>
+            </div>
+            <label for="request-note">Note <span class="optional">(optional)</span></label>
+            <textarea id="request-note" name="note" rows="3" placeholder="Add a little context for your manager"></textarea>
+            <button class="button button-primary" type="submit">Send request <span aria-hidden="true">→</span></button>
+            <p id="request-message" class="form-message" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+      </section>
+    </main>
+    <footer class="site-footer"><span>People Hub</span><span>Employee self-service · Demo</span></footer>
+  </body>
+</html>

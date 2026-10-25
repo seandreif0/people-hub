@@ -1,0 +1,77 @@
+<!doctype html>
+<!-- NOTE: This was built without engineering review. Consult engineering before deploying to production. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7fa">
+    <title>Home · People Hub</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body data-page="home">
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="People Hub home">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span>People Hub</span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class="active" href="/">Home</a>
+        <a href="/time-off">Time Off</a>
+        <a href="/benefits">Benefits</a>
+        <a href="/directory">Directory</a>
+      </nav>
+      <div class="profile-chip"><span class="avatar">AM</span><span>Alex Morgan</span></div>
+    </header>
+    <main class="page-shell">
+      <section class="welcome-panel">
+        <div class="welcome-copy">
+          <p class="eyebrow">MONDAY · PEOPLE &amp; CULTURE</p>
+          <h1>Good morning, Alex.</h1>
+          <p class="welcome-lede">Your work, your benefits, and your people — all in one place.</p>
+          <a class="button button-light" href="/time-off">Plan time away <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="welcome-art" aria-hidden="true">
+          <div class="art-orbit orbit-one"></div>
+          <div class="art-orbit orbit-two"></div>
+          <div class="art-sun"></div>
+          <div class="art-note">A little space<br>goes a long way.</div>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <div><p class="eyebrow">YOUR SHORTCUTS</p><h2>Where would you like to go?</h2></div>
+          <p class="muted">A few useful places to start.</p>
+        </div>
+        <div class="shortcut-grid">
+          <a class="shortcut-card time-card" href="/time-off">
+            <span class="card-icon icon-lavender" aria-hidden="true">↗</span>
+            <span class="card-title">Time Off</span>
+            <span class="card-description">Check your balance and request time away.</span>
+            <span class="card-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="shortcut-card benefits-card" href="/benefits">
+            <span class="card-icon icon-mint" aria-hidden="true">✳</span>
+            <span class="card-title">Benefits</span>
+            <span class="card-description">Explore the programs available to you.</span>
+            <span class="card-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="shortcut-card directory-card" href="/directory">
+            <span class="card-icon icon-peach" aria-hidden="true">◎</span>
+            <span class="card-title">Directory</span>
+            <span class="card-description">Find a colleague or browse a team.</span>
+            <span class="card-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="home-footer">
+        <div><p class="eyebrow">HERE TO HELP</p><h2>Need a hand?</h2></div>
+        <p>People &amp; Culture is here to help with questions about your work and wellbeing.</p>
+        <a class="text-link" href="mailto:people@example.com">Contact the team <span aria-hidden="true">↗</span></a>
+      </section>
+    </main>
+    <footer class="site-footer"><span>People Hub</span><span>Employee self-service · Demo</span></footer>
+  </body>
+</html>

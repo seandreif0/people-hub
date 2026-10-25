@@ -1,0 +1,16 @@
+{
+  "name": "people-hub-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A local, fictional employee self-service demo app.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
