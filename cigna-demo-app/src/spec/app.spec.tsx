@@ -53,6 +53,16 @@ describe('Login', () => {
     )
   })
 
+  it('renders four distinct feature tile icons without IntersectionObserver', () => {
+    const { container } = renderApp('/login')
+    for (const title of ['Track claims', 'Find care', 'Manage Rx', 'View ID cards']) {
+      expect(screen.getByRole('heading', { level: 3, name: title })).toBeInTheDocument()
+    }
+    const list = container.querySelector('ul.feature-tiles')
+    expect(list).toHaveAttribute('data-inview', 'true')
+    expect(list?.querySelectorAll('svg.feature-icon')).toHaveLength(4)
+  })
+
   it('visiting /claims signed out redirects to login', async () => {
     renderApp('/claims')
     await waitFor(() =>

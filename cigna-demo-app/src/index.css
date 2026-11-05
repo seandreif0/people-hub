@@ -82,3 +82,91 @@
     @apply underline;
   }
 }
+
+/* Login "you're in control" feature icons */
+.feature-icon .fi-accent {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes fi-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes fi-pop {
+  0% { opacity: 0; transform: scale(0.6); }
+  70% { opacity: 1; transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fi-check-redraw {
+  0% { stroke-dashoffset: 1; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes fi-bounce {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-3px); }
+  70% { transform: translateY(1px); }
+}
+
+@keyframes fi-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(12deg); }
+  75% { transform: rotate(-12deg); }
+}
+
+@keyframes fi-tilt {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-6deg); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .feature-tiles[data-inview="false"] .fi-draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  .feature-tiles[data-inview="false"] .fi-accent {
+    opacity: 0;
+  }
+
+  .feature-tiles[data-inview="true"] .fi-draw {
+    stroke-dasharray: 1;
+    animation: fi-draw 700ms ease-out both;
+    animation-delay: calc(var(--i, 0) * 120ms);
+  }
+  .feature-tiles[data-inview="true"] .fi-accent {
+    animation: fi-pop 450ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    animation-delay: calc(var(--i, 0) * 120ms + 550ms);
+  }
+  .feature-tiles .fi-check {
+    stroke-dasharray: 1;
+  }
+
+  /* fi-pop stays first in the list so un-hovering doesn't replay the entrance */
+  .feature-tiles[data-inview="true"] .feature-tile:is(:hover, :focus-within) .fi-check {
+    animation:
+      fi-pop 450ms cubic-bezier(0.34, 1.56, 0.64, 1) both,
+      fi-check-redraw 500ms ease-out;
+    animation-delay: calc(var(--i, 0) * 120ms + 550ms), 0ms;
+  }
+  .feature-tiles[data-inview="true"] .feature-tile:is(:hover, :focus-within) .fi-pin {
+    animation:
+      fi-pop 450ms cubic-bezier(0.34, 1.56, 0.64, 1) both,
+      fi-bounce 600ms ease-in-out;
+    animation-delay: calc(var(--i, 0) * 120ms + 550ms), 0ms;
+  }
+  .feature-tiles[data-inview="true"] .feature-tile:is(:hover, :focus-within) .fi-pill {
+    animation:
+      fi-pop 450ms cubic-bezier(0.34, 1.56, 0.64, 1) both,
+      fi-wiggle 500ms ease-in-out;
+    animation-delay: calc(var(--i, 0) * 120ms + 550ms), 0ms;
+  }
+  .feature-tiles[data-inview="true"] .feature-tile:is(:hover, :focus-within) .fi-card {
+    animation:
+      fi-pop 450ms cubic-bezier(0.34, 1.56, 0.64, 1) both,
+      fi-tilt 500ms ease-in-out;
+    animation-delay: calc(var(--i, 0) * 120ms + 550ms), 0ms;
+  }
+}

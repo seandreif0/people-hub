@@ -1,13 +1,15 @@
-import { useState, type FormEvent } from 'react'
+import { useState, type CSSProperties, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/context'
 import Leaf from '../components/Leaf'
+import { ClaimsIcon, FindCareIcon, IdCardIcon, RxIcon } from '../components/FeatureIcons'
+import { useInView } from '../components/useInView'
 
 const tiles = [
-  { title: 'Track claims', text: 'See status and details in real time.' },
-  { title: 'Find care', text: 'Search in-network doctors and dentists.' },
-  { title: 'Manage Rx', text: 'Refill prescriptions and check costs.' },
-  { title: 'View ID cards', text: 'Digital cards for the whole family.' },
+  { title: 'Track claims', text: 'See status and details in real time.', Icon: ClaimsIcon },
+  { title: 'Find care', text: 'Search in-network doctors and dentists.', Icon: FindCareIcon },
+  { title: 'Manage Rx', text: 'Refill prescriptions and check costs.', Icon: RxIcon },
+  { title: 'View ID cards', text: 'Digital cards for the whole family.', Icon: IdCardIcon },
 ]
 
 export default function Login() {
@@ -16,6 +18,7 @@ export default function Login() {
   const [username, setUsername] = useState('testmember')
   const [password, setPassword] = useState('demo')
   const [error, setError] = useState<string | null>(null)
+  const [tilesRef, tilesInView] = useInView<HTMLUListElement>()
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -93,11 +96,15 @@ export default function Login() {
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-8">
         <h2 className="font-serif text-3xl font-bold">With myCigna, you're in control:</h2>
-        <ul className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
-          {tiles.map((t) => (
-            <li key={t.title} className="text-center">
-              <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-surface-tint">
-                <Leaf className="h-8 w-12" />
+        <ul
+          ref={tilesRef}
+          data-inview={tilesInView}
+          className="feature-tiles mt-8 grid grid-cols-2 gap-6 md:grid-cols-4"
+        >
+          {tiles.map((t, index) => (
+            <li key={t.title} className="feature-tile group text-center" style={{ '--i': index } as CSSProperties}>
+              <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-surface-tint transition-transform duration-300 group-hover:scale-105 group-focus-within:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100 motion-reduce:group-focus-within:scale-100">
+                <t.Icon className="h-12 w-12 text-navy" />
               </div>
               <h3 className="mt-4 text-lg font-bold">{t.title}</h3>
               <p className="mt-1 text-sm text-secondary">{t.text}</p>
