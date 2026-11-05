@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0033ff;
+  --color-primary-hover: #001f99;
+  --color-primary-pressed: #001466;
+  --color-primary-tint: #ccd6ff;
+  --color-surface-tint: #eef1ff;
+  --color-navy: #110081;
+  --color-leaf: #03cc54;
+  --color-body: #333333;
+  --color-secondary: #555555;
+  --color-border-input: #707070;
+  --color-divider: #d6d6d6;
+  --color-surface-neutral: #f4f4f4;
+  --color-error: #ba0000;
+  --color-success: #00874d;
+
+  --font-sans: "Figtree", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Lora", Georgia, "Times New Roman", serif;
+}
+
+@layer base {
+  body {
+    @apply font-sans text-body bg-white;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply text-navy;
+  }
+  a {
+    @apply text-primary;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border-width: 2px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition-property: color, background-color, border-color;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply btn border-primary bg-primary text-white hover:bg-primary-hover hover:border-primary-hover active:bg-primary-pressed active:border-primary-pressed;
+  }
+  .btn-secondary {
+    @apply btn border-primary bg-white text-primary hover:bg-surface-tint active:bg-primary-tint;
+  }
+  .btn-inverse {
+    @apply btn border-white bg-white text-primary hover:bg-surface-tint;
+  }
+  .input {
+    @apply w-full rounded-lg border border-border-input bg-white px-4 py-4 text-base text-body placeholder:text-secondary;
+  }
+  .card {
+    @apply rounded-3xl bg-white p-6 shadow-[0_4px_16px_rgba(0,0,0,0.12)];
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-sm font-medium;
+  }
+  .leaf-body a {
+    @apply underline;
+  }
+}
