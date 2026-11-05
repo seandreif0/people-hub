@@ -53,6 +53,12 @@ describe('Login', () => {
     )
   })
 
+  it('shows the four feature cards', () => {
+    renderApp('/login')
+    const titles = screen.getAllByRole('heading', { level: 3 }).map((h) => h.textContent)
+    expect(titles).toEqual(expect.arrayContaining(['Track claims', 'Find care', 'Manage Rx', 'View ID cards']))
+  })
+
   it('visiting /claims signed out redirects to login', async () => {
     renderApp('/claims')
     await waitFor(() =>

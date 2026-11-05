@@ -1,14 +1,8 @@
 import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/context'
+import FeatureBento from '../components/FeatureBento'
 import Leaf from '../components/Leaf'
-
-const tiles = [
-  { title: 'Track claims', text: 'See status and details in real time.' },
-  { title: 'Find care', text: 'Search in-network doctors and dentists.' },
-  { title: 'Manage Rx', text: 'Refill prescriptions and check costs.' },
-  { title: 'View ID cards', text: 'Digital cards for the whole family.' },
-]
 
 export default function Login() {
   const { login } = useAuth()
@@ -93,17 +87,7 @@ export default function Login() {
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-8">
         <h2 className="font-serif text-3xl font-bold">With myCigna, you're in control:</h2>
-        <ul className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
-          {tiles.map((t) => (
-            <li key={t.title} className="text-center">
-              <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-surface-tint">
-                <Leaf className="h-8 w-12" />
-              </div>
-              <h3 className="mt-4 text-lg font-bold">{t.title}</h3>
-              <p className="mt-1 text-sm text-secondary">{t.text}</p>
-            </li>
-          ))}
-        </ul>
+        <FeatureBento />
       </section>
     </div>
   )
