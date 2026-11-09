@@ -1,5 +1,5 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { describe, expect, it, beforeEach } from 'vitest'
+import { act, render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { afterEach, describe, expect, it, beforeEach, vi } from 'vitest'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from '../auth/AuthContext'
 import { ToastProvider } from '../components/Toast'
@@ -51,6 +51,43 @@ describe('Login', () => {
     await waitFor(() =>
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/good (morning|afternoon|evening)/i),
     )
+  })
+
+  describe('in-control tiles animation', () => {
+    afterEach(() => vi.unstubAllGlobals())
+
+    const tilesSection = () =>
+      screen.getByRole('heading', { name: /you're in control/i }).closest('section')!
+
+    it('shows all tiles immediately when IntersectionObserver is unavailable', () => {
+      vi.stubGlobal('IntersectionObserver', undefined)
+      renderApp('/login')
+      for (const title of ['Track claims', 'Find care', 'Manage Rx', 'View ID cards']) {
+        expect(screen.getByRole('heading', { name: title })).toBeInTheDocument()
+      }
+      expect(tilesSection()).toHaveAttribute('data-inview', 'true')
+    })
+
+    it('flips data-inview to true once the section intersects', () => {
+      let trigger: (isIntersecting: boolean) => void = () => {}
+      class StubObserver {
+        constructor(cb: IntersectionObserverCallback) {
+          trigger = (isIntersecting) =>
+            cb([{ isIntersecting } as IntersectionObserverEntry], this as unknown as IntersectionObserver)
+        }
+        observe() {}
+        unobserve() {}
+        disconnect() {}
+        takeRecords() { return [] }
+      }
+      vi.stubGlobal('IntersectionObserver', StubObserver)
+      renderApp('/login')
+      expect(tilesSection()).toHaveAttribute('data-inview', 'false')
+      act(() => trigger(false))
+      expect(tilesSection()).toHaveAttribute('data-inview', 'false')
+      act(() => trigger(true))
+      expect(tilesSection()).toHaveAttribute('data-inview', 'true')
+    })
   })
 
   it('visiting /claims signed out redirects to login', async () => {

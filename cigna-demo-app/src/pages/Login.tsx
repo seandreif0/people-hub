@@ -1,7 +1,8 @@
-import { useState, type FormEvent } from 'react'
+import { useState, type CSSProperties, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/context'
 import Leaf from '../components/Leaf'
+import { useInView } from '../hooks/useInView'
 
 const tiles = [
   { title: 'Track claims', text: 'See status and details in real time.' },
@@ -16,6 +17,7 @@ export default function Login() {
   const [username, setUsername] = useState('testmember')
   const [password, setPassword] = useState('demo')
   const [error, setError] = useState<string | null>(null)
+  const [tilesRef, tilesInView] = useInView<HTMLElement>()
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -91,13 +93,20 @@ export default function Login() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-8">
+      <section
+        ref={tilesRef}
+        data-inview={tilesInView ? 'true' : 'false'}
+        className="mx-auto max-w-6xl px-4 py-12 sm:px-8"
+      >
         <h2 className="font-serif text-3xl font-bold">With myCigna, you're in control:</h2>
         <ul className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
-          {tiles.map((t) => (
-            <li key={t.title} className="text-center">
-              <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-surface-tint">
-                <Leaf className="h-8 w-12" />
+          {tiles.map((t, i) => (
+            <li key={t.title} className="text-center" style={{ '--delay': `${i * 120}ms` } as CSSProperties}>
+              <div className="animate-circle-pop relative mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-surface-tint">
+                <span aria-hidden="true" className="animate-ring-pulse pointer-events-none absolute inset-0 rounded-full border-4 border-leaf" />
+                <span className="animate-leaf-grow inline-block">
+                  <Leaf className="block h-8 w-12" />
+                </span>
               </div>
               <h3 className="mt-4 text-lg font-bold">{t.title}</h3>
               <p className="mt-1 text-sm text-secondary">{t.text}</p>
