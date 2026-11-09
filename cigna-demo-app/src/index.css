@@ -126,7 +126,7 @@
 }
 
 @utility animate-circle-pop {
-  animation: circle-pop 450ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: circle-pop 450ms ease-out both;
   animation-delay: var(--delay, 0ms);
 
   [data-inview="false"] & {
