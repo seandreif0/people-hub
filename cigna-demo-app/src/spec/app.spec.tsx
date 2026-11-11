@@ -1,5 +1,5 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { describe, expect, it, beforeEach } from 'vitest'
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
+import { describe, expect, it, beforeEach, afterEach } from 'vitest'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from '../auth/AuthContext'
 import { ToastProvider } from '../components/Toast'
@@ -51,6 +51,51 @@ describe('Login', () => {
     await waitFor(() =>
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/good (morning|afternoon|evening)/i),
     )
+  })
+
+  describe('feature tiles without IntersectionObserver', () => {
+    const original = globalThis.IntersectionObserver
+
+    beforeEach(() => {
+      Reflect.deleteProperty(globalThis, 'IntersectionObserver')
+    })
+
+    afterEach(() => {
+      if (original) globalThis.IntersectionObserver = original
+    })
+
+    it('renders all four tiles visible', () => {
+      renderApp('/login')
+      for (const title of ['Track claims', 'Find care', 'Manage Rx', 'View ID cards']) {
+        const heading = screen.getByRole('heading', { level: 3, name: title })
+        expect(heading).toBeVisible()
+        expect(heading.closest('li')).not.toHaveClass('opacity-0')
+      }
+    })
+  })
+
+  it('reveals feature tiles only once the section reaches the 30% threshold', () => {
+    let notify: IntersectionObserverCallback = () => {}
+    class MockObserver {
+      constructor(cb: IntersectionObserverCallback) { notify = cb }
+      observe() {}
+      disconnect() {}
+    }
+    const original = globalThis.IntersectionObserver
+    globalThis.IntersectionObserver = MockObserver as unknown as typeof IntersectionObserver
+    try {
+      renderApp('/login')
+      const tile = () => screen.getByRole('heading', { level: 3, name: 'Track claims' }).closest('li')
+      const fire = (ratio: number) =>
+        act(() => notify([{ isIntersecting: true, intersectionRatio: ratio } as IntersectionObserverEntry], {} as IntersectionObserver))
+      fire(0.1)
+      expect(tile()).toHaveClass('opacity-0')
+      fire(0.35)
+      expect(tile()).not.toHaveClass('opacity-0')
+    } finally {
+      if (original) globalThis.IntersectionObserver = original
+      else Reflect.deleteProperty(globalThis, 'IntersectionObserver')
+    }
   })
 
   it('visiting /claims signed out redirects to login', async () => {
