@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { describe, expect, it, beforeEach } from 'vitest'
+import { describe, expect, it, beforeEach, afterEach } from 'vitest'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from '../auth/AuthContext'
 import { ToastProvider } from '../components/Toast'
@@ -51,6 +51,27 @@ describe('Login', () => {
     await waitFor(() =>
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/good (morning|afternoon|evening)/i),
     )
+  })
+
+  describe('feature tiles without IntersectionObserver', () => {
+    const original = globalThis.IntersectionObserver
+
+    beforeEach(() => {
+      Reflect.deleteProperty(globalThis, 'IntersectionObserver')
+    })
+
+    afterEach(() => {
+      if (original) globalThis.IntersectionObserver = original
+    })
+
+    it('renders all four tiles visible', () => {
+      renderApp('/login')
+      for (const title of ['Track claims', 'Find care', 'Manage Rx', 'View ID cards']) {
+        const heading = screen.getByRole('heading', { level: 3, name: title })
+        expect(heading).toBeVisible()
+        expect(heading.closest('li')).not.toHaveClass('opacity-0')
+      }
+    })
   })
 
   it('visiting /claims signed out redirects to login', async () => {
