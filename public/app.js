@@ -14,6 +14,7 @@ function makeElement(tagName, className, text) {
 }
 
 async function loadTimeOff() {
+  const { regions, defaultRegion, formatDate } = window.TimeOffRegions;
   const data = await getJson('/api/time-off');
   document.querySelector('#balance-days').textContent = data.balanceDays;
   const select = document.querySelector('#leave-type');
@@ -21,10 +22,43 @@ async function loadTimeOff() {
     select.add(new Option(type.name, type.name));
   }
 
-  document.querySelector('#request-form').addEventListener('submit', async (event) => {
+  const form = document.querySelector('#request-form');
+  const regionSelect = document.querySelector('#region-select');
+  const startInput = document.querySelector('#start-date');
+  const endInput = document.querySelector('#end-date');
+  const datePreview = document.querySelector('#date-preview');
+
+  function renderDatePreview() {
+    const start = formatDate(startInput.value, regionSelect.value);
+    const end = formatDate(endInput.value, regionSelect.value);
+    datePreview.textContent = start || end ? `Selected: ${start || '—'} to ${end || '—'}` : '';
+  }
+
+  function renderRegion() {
+    const region = regions[regionSelect.value];
+    document.querySelector('#date-format').textContent = region.dateFormat;
+    document.querySelector('#policy-title').textContent = region.policy.title;
+    document.querySelector('#policy-holidays').textContent = region.policy.holidayCalendar;
+    document.querySelector('#policy-points').replaceChildren(
+      ...region.policy.points.map((point) => makeElement('li', '', point))
+    );
+    renderDatePreview();
+  }
+
+  for (const [code, region] of Object.entries(regions)) {
+    regionSelect.add(new Option(region.label, code));
+  }
+  regionSelect.value = defaultRegion;
+  regionSelect.addEventListener('change', renderRegion);
+  startInput.addEventListener('input', renderDatePreview);
+  endInput.addEventListener('input', renderDatePreview);
+  renderRegion();
+
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const message = document.querySelector('#request-message');
-    const formData = new FormData(event.currentTarget);
+    const region = regionSelect.value;
+    const formData = new FormData(form);
     const response = await fetch('/api/time-off-requests', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -32,10 +66,13 @@ async function loadTimeOff() {
     });
     const result = await response.json();
     message.textContent = response.ok
-      ? `Request ${result.id} submitted for review.`
+      ? `Request ${result.id} submitted for review: ${formatDate(result.startDate, region)} to ${formatDate(result.endDate, region)}.`
       : result.error;
     message.className = `form-message${response.ok ? ' success' : ' error'}`;
-    if (response.ok) event.currentTarget.reset();
+    if (response.ok) {
+      form.reset();
+      renderDatePreview();
+    }
   });
 }
 
