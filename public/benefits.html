@@ -6,29 +6,33 @@
     <meta name="theme-color" content="#f5f7fa">
     <title>Benefits · S&amp;P People Hub</title>
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/benefits.css">
     <script src="/app.js" defer></script>
   </head>
   <body data-page="benefits">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="site-header">
-      <a class="brand" href="/" aria-label="S&amp;P People Hub home"><span class="brand-mark">S&amp;P Global</span><span class="brand-product">People Hub</span></a>
+      <a class="brand" href="/" aria-label="S&amp;P Global People Hub home"><span class="brand-mark">S&amp;P Global</span><span class="brand-product">People Hub</span></a>
       <nav class="main-nav" aria-label="Main navigation">
-        <a href="/">Home</a><a href="/time-off">Time Off</a><a class="active" href="/benefits">Benefits</a><a href="/directory">Directory</a>
+        <a href="/">Home</a><a href="/time-off">Time Off</a><a class="active" href="/benefits" aria-current="page">Benefits</a><a href="/directory">Directory</a>
       </nav>
-      <div class="profile-chip"><span class="avatar">SF</span><span>Seth Fox</span></div>
+      <div class="profile-chip"><span class="avatar" aria-hidden="true">SF</span><span><span class="sr-only">Signed in as </span>Seth Fox</span></div>
     </header>
-    <main class="page-shell">
-      <section class="page-intro">
+    <main id="main-content" class="page-shell" tabindex="-1">
+      <section class="page-intro" aria-labelledby="benefits-title">
         <p class="eyebrow">SUPPORT FOR YOU</p>
-        <h1>Benefits that work for you.</h1>
+        <h1 id="benefits-title">Benefits that work for you.</h1>
         <p class="welcome-lede">A quick guide to the programs and resources available to you.</p>
       </section>
-      <section class="section-block">
-        <div id="benefit-grid" class="benefit-grid" aria-live="polite">
+      <section class="section-block" aria-labelledby="benefit-list-title">
+        <h2 id="benefit-list-title" class="sr-only">Your benefits</h2>
+        <p id="benefit-status" class="sr-only" role="status"></p>
+        <div id="benefit-grid" class="benefit-grid" aria-busy="true">
           <p class="muted">Loading your benefits…</p>
         </div>
       </section>
-      <section class="help-banner">
-        <div><p class="eyebrow">HAVE A QUESTION?</p><h2>We can point you in the right direction.</h2></div>
+      <section class="help-banner" aria-labelledby="help-title">
+        <div><p class="eyebrow">HAVE A QUESTION?</p><h2 id="help-title">We can point you in the right direction.</h2></div>
         <a class="button button-primary" href="mailto:people@example.com">Ask People &amp; Culture <span aria-hidden="true">→</span></a>
       </section>
     </main>
