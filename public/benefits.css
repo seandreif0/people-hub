@@ -34,7 +34,7 @@ main:focus { outline: none; }
   outline-offset: -6px;
 }
 .main-nav a:focus-visible { outline-offset: -3px; }
-.brand:focus-visible { outline-offset: 2px; }
+.brand:focus-visible { outline-offset: -3px; }
 
 #benefit-grid { display: block; }
 .benefit-list {
