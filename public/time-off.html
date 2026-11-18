@@ -6,6 +6,8 @@
     <meta name="theme-color" content="#f5f7fa">
     <title>Time Off · S&amp;P People Hub</title>
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/time-off.css">
+    <script src="/time-off-regions.js" defer></script>
     <script src="/app.js" defer></script>
   </head>
   <body data-page="time-off">
@@ -22,14 +24,30 @@
         <h1>Make room for life.</h1>
         <p class="welcome-lede">Check your available time and send a request when you’re ready.</p>
       </section>
+      <section class="region-bar" aria-label="Work region">
+        <div class="region-field">
+          <label for="region-select">Work region</label>
+          <select id="region-select"></select>
+        </div>
+        <p class="region-format">Dates shown as <strong id="date-format">—</strong></p>
+      </section>
       <section class="time-layout">
-        <article class="balance-card">
-          <div class="balance-top"><span class="card-icon icon-lavender" aria-hidden="true">↗</span><span class="eyebrow">YOUR PTO BALANCE</span></div>
-          <p class="balance-number"><span id="balance-days">—</span> <span>days</span></p>
-          <p class="muted">Available to request</p>
-          <div class="balance-rule"></div>
-          <p class="balance-note">Your balance is refreshed as time off is approved.</p>
-        </article>
+        <div class="time-side">
+          <article class="balance-card">
+            <div class="balance-top"><span class="card-icon icon-lavender" aria-hidden="true">↗</span><span class="eyebrow">YOUR PTO BALANCE</span></div>
+            <p class="balance-number"><span id="balance-days">—</span> <span>days</span></p>
+            <p class="muted">Available to request</p>
+            <div class="balance-rule"></div>
+            <p class="balance-note">Your balance is refreshed as time off is approved.</p>
+          </article>
+          <article class="policy-card" id="policy-summary" aria-live="polite">
+            <span class="demo-badge">Demo data</span>
+            <h2 id="policy-title">Regional policy</h2>
+            <p class="muted">Holiday calendar: <span id="policy-holidays">—</span></p>
+            <ul id="policy-points"></ul>
+            <p class="policy-disclaimer">Sample regional policy for demonstration only. Not actual company or legal guidance.</p>
+          </article>
+        </div>
         <section class="form-card">
           <p class="eyebrow">PLAN AHEAD</p>
           <h2>Request time off</h2>
@@ -43,6 +61,7 @@
               <div><label for="start-date">First day</label><input id="start-date" name="startDate" type="date" required></div>
               <div><label for="end-date">Last day</label><input id="end-date" name="endDate" type="date" required></div>
             </div>
+            <p id="date-preview" class="date-preview" aria-live="polite"></p>
             <label for="request-note">Note <span class="optional">(optional)</span></label>
             <textarea id="request-note" name="note" rows="3" placeholder="Add a little context for your manager"></textarea>
             <button class="button button-primary" type="submit">Send request <span aria-hidden="true">→</span></button>

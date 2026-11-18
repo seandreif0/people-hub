@@ -1,0 +1,17 @@
+.region-bar { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px; margin: -12px 0 18px; }
+.region-field { display: grid; gap: 6px; min-width: 220px; }
+.region-field select { width: auto; min-width: 220px; }
+.demo-badge { display: inline-block; padding: 3px 8px; border: 1px solid #bdbdbd; color: #4e596c; font-size: 11px; font-weight: 650; letter-spacing: .04em; text-transform: uppercase; }
+.region-format { margin: 0; color: var(--muted); font-size: 12px; }
+.region-format strong { color: var(--ink); }
+.policy-card { margin-top: 18px; padding: 22px 25px; border: 1px solid var(--line); background: var(--paper); }
+.policy-card h2 { margin: 6px 0 4px; font-size: 18px; }
+.policy-card .muted { margin: 0 0 10px; font-size: 12px; }
+.policy-card ul { margin: 0; padding-left: 18px; font-size: 13px; }
+.policy-card li + li { margin-top: 6px; }
+.policy-disclaimer { margin: 14px 0 0; color: #70798b; font-size: 11px; }
+.date-preview { min-height: 18px; margin: 0; color: var(--muted); font-size: 12px; }
+
+@media (max-width: 600px) {
+  .region-field, .region-field select { width: 100%; }
+}
