@@ -40,19 +40,41 @@ async function loadTimeOff() {
 }
 
 async function loadBenefits() {
-  const benefits = await getJson('/api/benefits');
   const grid = document.querySelector('#benefit-grid');
-  grid.replaceChildren();
+  const status = document.querySelector('#benefit-status');
+  let benefits;
+  try {
+    benefits = await getJson('/api/benefits');
+  } catch (error) {
+    grid.removeAttribute('aria-busy');
+    if (status) status.textContent = 'We could not load your benefits. Please try again.';
+    throw error;
+  }
+  const list = makeElement('ul', 'benefit-list');
+  list.setAttribute('role', 'list');
   benefits.forEach((benefit, index) => {
+    const item = makeElement('li');
     const card = makeElement('article', 'benefit-card');
+    const headingId = `benefit-title-${index + 1}`;
+    card.setAttribute('aria-labelledby', headingId);
     const icon = makeElement('span', `card-icon ${['icon-mint', 'icon-lavender', 'icon-peach'][index % 3]}`, ['✳', '↗', '◎'][index % 3]);
     icon.setAttribute('aria-hidden', 'true');
-    card.append(icon, makeElement('h2', '', benefit.title), makeElement('p', 'muted', benefit.description));
-    const action = makeElement('a', 'text-link', `${benefit.action} →`);
+    const heading = makeElement('h3', '', benefit.title);
+    heading.id = headingId;
+    card.append(icon, heading, makeElement('p', 'muted', benefit.description));
+    const action = makeElement('a', 'text-link', benefit.action);
     action.href = 'mailto:people@example.com';
+    action.setAttribute('aria-describedby', headingId);
+    const arrow = makeElement('span', '', '→');
+    arrow.setAttribute('aria-hidden', 'true');
+    action.append(arrow);
     card.append(action);
-    grid.append(card);
+    item.append(card);
+    list.append(item);
   });
+  grid.replaceChildren(list);
+  grid.removeAttribute('aria-busy');
+  if (status) status.textContent = `${benefits.length} benefits loaded.`;
 }
 
 async function loadDirectory() {
