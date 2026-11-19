@@ -25,7 +25,7 @@ export const members: Member[] = [
 ]
 
 export const plan: Plan = {
-  name: 'Cigna Open Access Plus — Demo',
+  name: 'myS&P Open Access Plus — Demo',
   memberId: 'TEST-000123',
   groupNumber: 'GRP-DEMO-001',
   coverageStart: '2026-01-01',

@@ -37,7 +37,7 @@ export default function Footer() {
         </div>
         <p className="mt-10 border-t border-divider pt-6 text-sm text-secondary">
           This is a fictional demonstration application. It is not affiliated with,
-          endorsed by, or connected to Cigna Healthcare or The Cigna Group. All people,
+          endorsed by, or connected to myS&P. All people,
           plans, claims, providers, and prescriptions shown are entirely synthetic.
           Product details are illustrative only and do not represent real coverage.
         </p>

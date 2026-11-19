@@ -56,13 +56,13 @@ describe('Login', () => {
   it('visiting /claims signed out redirects to login', async () => {
     renderApp('/claims')
     await waitFor(() =>
-      expect(screen.getByRole('heading', { name: /welcome to mycigna/i })).toBeInTheDocument(),
+      expect(screen.getByRole('heading', { name: /welcome to mys&p/i })).toBeInTheDocument(),
     )
   })
 })
 
 describe('Claims', () => {
-  beforeEach(() => localStorage.setItem('cigna-demo-authenticated', 'true'))
+  beforeEach(() => localStorage.setItem('mysp-demo-authenticated', 'true'))
 
   it('filtering by status Denied shows only denied rows', () => {
     renderApp('/claims')
@@ -81,7 +81,7 @@ describe('Claims', () => {
 })
 
 describe('Find care', () => {
-  beforeEach(() => localStorage.setItem('cigna-demo-authenticated', 'true'))
+  beforeEach(() => localStorage.setItem('mysp-demo-authenticated', 'true'))
 
   it('in-network only toggle hides out-of-network providers', () => {
     renderApp('/find-care')

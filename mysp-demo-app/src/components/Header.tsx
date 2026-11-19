@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { NavLink, Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/context'
-import logo from '../assets/cigna-logo.svg'
+import logo from '../assets/mysp-logo.svg'
 
 const navItems = [
   { to: '/', label: 'Home', end: true },
@@ -27,8 +27,8 @@ export default function Header() {
     <header>
       {/* top utility bar */}
       <div className="flex items-center justify-between gap-4 border-b border-divider bg-white px-4 py-3 sm:px-8">
-        <Link to={isAuthenticated ? '/' : '/login'} aria-label="Cigna demo home">
-          <img src={logo} alt="Cigna Healthcare" className="h-[40px] w-auto sm:h-[53px]" />
+        <Link to={isAuthenticated ? '/' : '/login'} aria-label="myS&P demo home">
+          <img src={logo} alt="myS&P" className="h-[40px] w-auto sm:h-[53px]" />
         </Link>
         <div className="flex items-center gap-4 text-sm">
           <button type="button" className="hidden text-primary underline sm:inline">Español</button>
