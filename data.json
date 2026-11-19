@@ -45,28 +45,48 @@
       "role": "People Operations Partner",
       "department": "People & Culture",
       "location": "New York, NY",
-      "email": "seth.fox@example.com"
+      "email": "seth.fox@example.com",
+      "skills": [
+        "Workforce planning",
+        "Employee relations",
+        "Data analysis"
+      ]
     },
     {
       "name": "Jordan Lee",
       "role": "Product Designer",
       "department": "Digital Workplace",
       "location": "Chicago, IL",
-      "email": "jordan.lee@example.com"
+      "email": "jordan.lee@example.com",
+      "skills": [
+        "UX research",
+        "Prototyping",
+        "Accessibility"
+      ]
     },
     {
       "name": "Taylor Reed",
       "role": "Benefits Specialist",
       "department": "People & Culture",
       "location": "Boston, MA",
-      "email": "taylor.reed@example.com"
+      "email": "taylor.reed@example.com",
+      "skills": [
+        "Benefits administration",
+        "Employee relations",
+        "Data analysis"
+      ]
     },
     {
       "name": "Casey Patel",
       "role": "Engineering Manager",
       "department": "Employee Platforms",
       "location": "Austin, TX",
-      "email": "casey.patel@example.com"
+      "email": "casey.patel@example.com",
+      "skills": [
+        "Cloud architecture",
+        "Team leadership",
+        "Accessibility"
+      ]
     }
   ]
 }

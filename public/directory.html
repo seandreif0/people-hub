@@ -6,6 +6,8 @@
     <meta name="theme-color" content="#f5f7fa">
     <title>Directory · S&amp;P People Hub</title>
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/directory.css">
+    <script src="/directory-filters.js" defer></script>
     <script src="/app.js" defer></script>
   </head>
   <body data-page="directory">
@@ -20,13 +22,27 @@
       <section class="page-intro">
         <p class="eyebrow">YOUR COLLEAGUES</p>
         <h1>People directory</h1>
-        <p class="welcome-lede">Find a teammate and see where they work.</p>
+        <p class="welcome-lede">Find a teammate by office, function or skill and see where they work.</p>
       </section>
       <section class="directory-panel">
         <div class="directory-toolbar">
           <div><h2>Team members</h2><p class="muted">A few people from across the company.</p></div>
           <label class="search-wrap"><span class="sr-only">Search by name or team</span><span aria-hidden="true">⌕</span><input id="directory-search" type="search" placeholder="Search people or teams"></label>
         </div>
+        <div class="directory-filters" role="group" aria-label="Filter people">
+          <label for="filter-office">Office<select id="filter-office"><option value="">All offices</option></select></label>
+          <label for="filter-function">Function<select id="filter-function"><option value="">All functions</option></select></label>
+          <label for="filter-skill">Skill<select id="filter-skill"><option value="">All skills</option></select></label>
+          <button id="clear-filters" class="clear-filters" type="button" disabled>Clear filters</button>
+        </div>
+        <p id="directory-count" class="directory-count muted" aria-live="polite"></p>
+        <section class="skills-summary" aria-labelledby="skills-summary-title">
+          <div class="skills-summary-head">
+            <h3 id="skills-summary-title">Team skills</h3>
+            <p class="muted">Number of people shown with each skill. Skills are sample demo data.</p>
+          </div>
+          <ul id="skills-summary-list" class="skills-summary-list"></ul>
+        </section>
         <div id="directory-list" class="directory-list" aria-live="polite">
           <p class="muted">Loading people…</p>
         </div>

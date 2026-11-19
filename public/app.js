@@ -57,15 +57,50 @@ async function loadBenefits() {
 
 async function loadDirectory() {
   const people = await getJson('/api/directory');
+  const { filterOptions, filterPeople, summarizeSkills } = window.DirectoryFilters;
   const list = document.querySelector('#directory-list');
   const search = document.querySelector('#directory-search');
+  const office = document.querySelector('#filter-office');
+  const department = document.querySelector('#filter-function');
+  const skill = document.querySelector('#filter-skill');
+  const clear = document.querySelector('#clear-filters');
+  const count = document.querySelector('#directory-count');
+  const summary = document.querySelector('#skills-summary-list');
+
+  const options = filterOptions(people);
+  options.offices.forEach((value) => office.add(new Option(value, value)));
+  options.functions.forEach((value) => department.add(new Option(value, value)));
+  options.skills.forEach((value) => skill.add(new Option(value, value)));
+
+  function renderSummary(matches) {
+    summary.replaceChildren();
+    const skills = summarizeSkills(matches);
+    if (!skills.length) {
+      summary.append(makeElement('li', 'muted', 'No skills to show.'));
+      return;
+    }
+    skills.forEach((entry) => {
+      const item = makeElement('li', '', entry.skill);
+      const tally = makeElement('span', 'skill-count', String(entry.count));
+      tally.setAttribute('aria-label', `${entry.count} ${entry.count === 1 ? 'person' : 'people'}`);
+      item.append(tally);
+      summary.append(item);
+    });
+  }
 
   function renderPeople() {
-    const query = search.value.trim().toLowerCase();
-    const matches = people.filter((person) => `${person.name} ${person.role} ${person.department} ${person.location}`.toLowerCase().includes(query));
+    const matches = filterPeople(people, {
+      query: search.value,
+      office: office.value,
+      department: department.value,
+      skill: skill.value
+    });
+    clear.disabled = !(search.value.trim() || office.value || department.value || skill.value);
+    count.textContent = `Showing ${matches.length} of ${people.length} people`;
+    renderSummary(matches);
     list.replaceChildren();
     if (!matches.length) {
-      list.append(makeElement('p', 'muted empty-state', 'No people match that search.'));
+      list.append(makeElement('p', 'muted empty-state', 'No people match that search or these filters.'));
       return;
     }
     matches.forEach((person) => {
@@ -74,6 +109,12 @@ async function loadDirectory() {
       const avatar = makeElement('span', 'avatar person-avatar', initials);
       const details = makeElement('div', 'person-details');
       details.append(makeElement('h3', '', person.name), makeElement('p', 'muted', person.role));
+      if (person.skills && person.skills.length) {
+        const skills = makeElement('ul', 'person-skills');
+        skills.setAttribute('aria-label', `${person.name} skills`);
+        person.skills.forEach((value) => skills.append(makeElement('li', '', value)));
+        details.append(skills);
+      }
       const team = makeElement('span', 'person-team', person.department);
       const location = makeElement('span', 'person-location', person.location);
       const email = makeElement('a', 'person-email', person.email);
@@ -84,6 +125,15 @@ async function loadDirectory() {
   }
 
   search.addEventListener('input', renderPeople);
+  [office, department, skill].forEach((control) => control.addEventListener('change', renderPeople));
+  clear.addEventListener('click', () => {
+    search.value = '';
+    office.value = '';
+    department.value = '';
+    skill.value = '';
+    renderPeople();
+    search.focus();
+  });
   renderPeople();
 }
 
