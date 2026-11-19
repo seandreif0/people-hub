@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-export const AUTH_KEY = 'cigna-demo-authenticated'
+export const AUTH_KEY = 'mysp-demo-authenticated'
 
 export interface AuthState {
   isAuthenticated: boolean

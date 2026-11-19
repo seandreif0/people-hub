@@ -35,7 +35,7 @@ export default function Login() {
           <div className="relative">
             <Leaf className="mb-4 block h-12 w-20" rotate={-20} />
             <h1 className="font-serif text-[40px] font-bold leading-tight text-navy sm:text-[56px]">
-              Welcome to myCigna
+              Welcome to myS&P
             </h1>
             <p className="mt-4 max-w-md text-lg text-secondary">
               Your demo member portal for managing coverage, claims, prescriptions,
@@ -92,7 +92,7 @@ export default function Login() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-8">
-        <h2 className="font-serif text-3xl font-bold">With myCigna, you're in control:</h2>
+        <h2 className="font-serif text-3xl font-bold">With myS&P, you're in control:</h2>
         <ul className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
           {tiles.map((t) => (
             <li key={t.title} className="text-center">

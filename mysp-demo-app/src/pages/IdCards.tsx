@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { members, plan } from '../data/members'
 import { useToast } from '../components/toast-context'
 import Leaf from '../components/Leaf'
-import logo from '../assets/cigna-logo.svg'
+import logo from '../assets/mysp-logo.svg'
 
 export default function IdCards() {
   const { showToast } = useToast()
@@ -35,7 +35,7 @@ export default function IdCards() {
         <section aria-label={`ID card front for ${member.name}`} className="relative overflow-hidden rounded-3xl bg-primary p-6 text-white shadow-[0_4px_16px_rgba(0,0,0,0.2)]">
           <Leaf className="pointer-events-none absolute -right-8 top-8 h-20 w-32 opacity-25" />
           <div className="relative flex items-center justify-between">
-            <div className="rounded-lg bg-white p-1"><img src={logo} alt="Cigna Healthcare" className="h-8 w-auto" /></div>
+            <div className="rounded-lg bg-white p-1"><img src={logo} alt="myS&P" className="h-8 w-auto" /></div>
             <span className="text-sm font-medium">Demo Plan</span>
           </div>
           <p className="mt-6 font-serif text-2xl font-bold">{member.name}</p>
